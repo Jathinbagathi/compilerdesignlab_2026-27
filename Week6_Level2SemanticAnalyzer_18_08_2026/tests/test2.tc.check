@@ -1,0 +1,15 @@
+2 type error(s) found:
+  line 6: undeclared variable 'x'
+  line 7: undeclared variable 'y'
+
+Type-checked AST (with any inserted casts):
+Function main
+  Assign
+    Var(a)
+    Const(10,DataType.INT)
+  Assign
+    Var(b)
+    Cast(DataType.DOUBLE)
+      Var(x)
+  Print
+    Var(y)
