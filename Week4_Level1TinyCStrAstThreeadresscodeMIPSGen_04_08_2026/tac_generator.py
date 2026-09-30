@@ -36,7 +36,7 @@ class TACGenerator:
             operand = self.gen_expr(stmt.expr)
             self.program.append(PrintTriple(operand))
 
-        
+
 
     def gen_expr(self, node):
         """
@@ -60,7 +60,7 @@ class TACGenerator:
         #recursively append triples for nested BinOps) BEFORE appending
        # this node's own triple -- otherwise triples come out numbered in
         #the wrong order and later TripleRefs point at the wrong thing.
-    
+
         #raise NotImplementedError("implement TACGenerator.gen_expr()")
 
 

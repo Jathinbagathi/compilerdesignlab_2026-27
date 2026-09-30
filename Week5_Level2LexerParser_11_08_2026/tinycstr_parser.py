@@ -100,35 +100,35 @@ class TinyCStrParser(Parser):
 
     @_('ID ASSIGN expr SEMICOLON')
     def assign(self, value):
-        return Assign(Var(value[0], lineno=value.lineno), value[2], lineno=value.lineno)
+        return Assign(Var(value[0]),value[2])
 
     @_('PRINT expr SEMICOLON')
     def print_stmt(self, value):
-        return Print(value[1], lineno=value.lineno)
+        return Print(value[1])
 
     @_('NUMBER')
     def expr(self, value):
-        return Const(value[0], DataType.INT, lineno=value.lineno)
+        return Const(value[0], DataType.INT)
 
     @_('ID')
     def expr(self, value):
-        return Var(value[0], lineno=value.lineno)
+        return Var(value[0])
 
     @_('expr PLUS expr')
     def expr(self, value):
-        return BinOp('+', value[0], value[2], lineno=value.lineno)
+        return BinOp('+', value[0], value[2])
 
     @_('expr MINUS expr')
     def expr(self, value):
-        return BinOp('-', value[0], value[2], lineno=value.lineno)
+        return BinOp('-', value[0], value[2])
 
     @_('expr TIMES expr')
     def expr(self, value):
-        return BinOp('*', value[0], value[2], lineno=value.lineno)
+        return BinOp('*', value[0], value[2])
 
     @_('expr DIVIDE expr')
     def expr(self, value):
-        return BinOp('/', value[0], value[2], lineno=value.lineno)
+        return BinOp('/', value[0], value[2])
 
     @_('LPAREN expr RPAREN')
     def expr(self, value):
@@ -139,57 +139,57 @@ class TinyCStrParser(Parser):
     # ------------------------------------------------------------------
     @_('REAL_CONST')
     def expr(self, value):
-        return Const(value[0], DataType.DOUBLE, lineno=value.lineno)
+        return Const(value[0], DataType.DOUBLE)
 
     # ------------------------------------------------------------------
     # LEVEL 2, Stage 2b -- char/string constants, relational operators
     # ------------------------------------------------------------------
     @_('CHAR_CONST')
     def expr(self, value):
-        return Const(value[0], DataType.CHAR, lineno=value.lineno)
+        return Const(value[0], DataType.CHAR)
 
     @_('STRING_CONST')
     def expr(self, value):
-        return Const(value[0], DataType.STRING, lineno=value.lineno)
+        return Const(value[0], DataType.STRING)
 
     @_('expr LT expr')
     def expr(self, value):
-        return RelOp('<', value[0], value[2], lineno=value.lineno)
+        return RelOp('<', value[0], value[2])
 
     @_('expr GT expr')
     def expr(self, value):
-        return RelOp('>', value[0], value[2], lineno=value.lineno)
+        return RelOp('>', value[0], value[2])
 
     @_('expr LE expr')
     def expr(self, value):
-        return RelOp('<=', value[0], value[2], lineno=value.lineno)
+        return RelOp('<=', value[0], value[2])
 
     @_('expr GE expr')
     def expr(self, value):
-        return RelOp('>=', value[0], value[2], lineno=value.lineno)
+        return RelOp('>=', value[0], value[2])
 
     @_('expr EQ expr')
     def expr(self, value):
-        return RelOp('==', value[0], value[2], lineno=value.lineno)
+        return RelOp('==', value[0], value[2])
 
     @_('expr NE expr')
     def expr(self, value):
-        return RelOp('!=', value[0], value[2], lineno=value.lineno)
+        return RelOp('!=', value[0], value[2])
 
     # ------------------------------------------------------------------
     # LEVEL 2, Stage 2c -- casts and ternary
     # ------------------------------------------------------------------
     @_('LPAREN DOUBLE RPAREN expr %prec UCAST')
     def expr(self, value):
-        return Cast(DataType.DOUBLE, value[3], lineno=value.lineno)
+        return Cast(DataType.DOUBLE, value[3])
 
     @_('LPAREN INT RPAREN expr %prec UCAST')
     def expr(self, value):
-        return Cast(DataType.INT, value[3], lineno=value.lineno)
+        return Cast(DataType.INT, value[3])
 
     @_('expr QUESTION expr COLON expr')
     def expr(self, value):
-        return Ternary(value[0], value[2], value[4], lineno=value.lineno)
+        return Ternary(value[0], value[2], value[4])
 
     def error(self, token):
         self.had_error = True
